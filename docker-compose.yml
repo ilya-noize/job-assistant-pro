@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  bot:
+    build: bot
+    image: bot-img
+    container_name: bot-con
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./.env
+    environment:
+      - TELEGRAM_TOKEN
