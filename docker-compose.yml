@@ -6,26 +6,50 @@ services:
       dockerfile: Dockerfile
     image: bot-img
     container_name: bot-con
-#    depends_on:
-#      db:
-#        condition: service_healthy
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
       - "8080:8080"
+    networks:
+      - api-networks
     env_file:
       - ./.env
     environment:
       - TELEGRAM_TOKEN
 
-#  db:
-#    image: postgres:latest
-#    healthcheck:
-#      test: [ "CMD-SHELL", "pg_isready -U postgres"]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
-#    env_file:
-#      - ./.env
-#    environment:
-#      POSTGRES_DB: ${POSTGRES_DB}
-#      POSTGRES_USER: ${POSTGRES_USER}
-#      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+  db:
+    image: postgres:latest
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - /srv/postgres/data:/var/lib/postgresql/data
+    networks:
+      - api-network
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx-proxy.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letcencrypt:ro
+    networks:
+      - api-network
+    depends_on:
+      - db
+      - bot
+
+  networks:
+    api-network:
+      driver: bridge
