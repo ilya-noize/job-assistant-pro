@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### MANUAL ###
+/logs/*
+/.env
+/src/main/resources/dev.application.yml
+/.m2/settings.xml
