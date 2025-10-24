@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: job-assistant-pro
+
+server:
+  port: 8080
+
+telegram:
+  bot:
+    name: JobAssistantPro
+    token: ${TELEGRAM_TOKEN}
+    picture:
+      original: https://cs14.isla-de-muerta.com/post_img/big/2023/12/11/11/1702322264156882213.jpg
+      avatar: images/botpic480.jpg
+      description: images/botpic_description.jpg
+
+aggregator:
+  hh:
+    uri:
+      api: ${HH_API_URI}
+      host: ${HH_HOST_URI}
+      redirect: ${HH_REDIRECT_URI}
+    responses:
+      limit:
+        count: 200
+        duration:
+          hours: 24
+        interval:
+          sec: 5
+    clientId: ${HH_CLIENT_ID}
+
+logging:
+  file:
+    name: "logs/service.log"
+  logback:
+    rollingpolicy:
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd_HH-mm}.%i.gz"
+      max-file-size: 1024B
+      max-history: 7
+
