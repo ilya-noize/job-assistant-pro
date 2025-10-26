@@ -1,5 +1,6 @@
 package com.ilya_noize.bot.component;
 
+import com.ilya_noize.bot.component.handler.MessageHandlerListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -9,13 +10,13 @@ import org.telegram.telegrambots.longpolling.starter.SpringLongPollingBot;
 @Component
 public class TelegramBot implements SpringLongPollingBot {
     private final String token;
-    private final UpdateConsumer updateConsumer;
+    private final MessageHandlerListener messageHandlerListener;
 
     @Autowired
     public TelegramBot(@Value("${telegram.bot.token}") String token,
-                       UpdateConsumer updateConsumer) {
+                       MessageHandlerListener messageHandlerListener) {
         this.token = token;
-        this.updateConsumer = updateConsumer;
+        this.messageHandlerListener = messageHandlerListener;
     }
 
     @Override
@@ -25,6 +26,6 @@ public class TelegramBot implements SpringLongPollingBot {
 
     @Override
     public LongPollingUpdateConsumer getUpdatesConsumer() {
-        return updateConsumer;
+        return messageHandlerListener;
     }
 }

@@ -30,11 +30,12 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+<!--		Starter-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+<!--		Telegram-->
 		<dependency>
 			<groupId>org.telegram</groupId>
 			<artifactId>telegrambots-client</artifactId>
@@ -45,13 +46,25 @@
 			<artifactId>telegrambots-springboot-longpolling-starter</artifactId>
 			<version>9.1.0</version>
 		</dependency>
-
+<!--		Log-->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.36</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.11</version>
+		</dependency>
+<!--		DevTools-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+<!--		Tests-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
