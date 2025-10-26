@@ -6,32 +6,23 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 @Component
-public class HandleLaunchButton implements HandleCallbackQuery {
+public class HandleResumeManagerButton implements HandleCallbackQuery {
+
+    private static final KeyboardButtons RESUME = KeyboardButtons.RESUME_MANAGER;
 
     @Override
     public String getOperationType() {
 
-        return KeyboardButtons.LAUNCH.getCallbackData();
+        return RESUME.getCallbackData();
     }
 
     @Override
     public SendMessage processing(CallbackQuery callbackQuery) {
-
-        StringBuilder message = new StringBuilder("Application was launched on ");
-        try {
-            message.append(InetAddress.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
-            message.append("unknown");
-        }
         //log.debug("Processing complete.");
-
         return SendMessage.builder()
                 .chatId(callbackQuery.getFrom().getId())
-                .text(message.append(" host").toString())
+                .text(RESUME.getDescription())
                 .build();
     }
 }

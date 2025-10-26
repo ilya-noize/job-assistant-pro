@@ -1,10 +1,8 @@
 package com.ilya_noize.bot.component.handler.command.impl;
 
+import com.ilya_noize.bot.component.handler.HandleCommand;
 import com.ilya_noize.bot.enums.Command;
 import com.ilya_noize.bot.enums.KeyboardButtons;
-import com.ilya_noize.bot.component.handler.HandleCommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -18,7 +16,6 @@ import static java.util.stream.Collectors.toMap;
 
 @Component
 public class HandleStart implements HandleCommand {
-    private static final Logger log = LoggerFactory.getLogger(HandleStart.class);
 
     public String getOperationType() {
         return Command.START.getName();
@@ -26,7 +23,7 @@ public class HandleStart implements HandleCommand {
 
     @Override
     public SendMessage processing(Long chatId) {
-        log.debug("Build message.");
+        //log.debug("Build message.");
         SendMessage message = SendMessage.builder()
                 .text("Welcome")
                 .chatId(chatId)
@@ -38,14 +35,14 @@ public class HandleStart implements HandleCommand {
                                 .filter(button -> button
                                         .getLinkingMenu().equals(getOperationType()))
                                 .collect(toMap(
-                                        KeyboardButtons::getText,
-                                        KeyboardButtons::getCallbackData))));
-        log.debug("Processing complete.");
+                                        KeyboardButtons::getCallbackData,
+                                        KeyboardButtons::getDescription))));
+        //log.debug("Processing complete.");
         return message;
     }
 
     private InlineKeyboardMarkup getInlineKeyboardMarkup(Map<String, String> buttons) {
-        log.debug("Set keyboard after message.");
+        //log.debug("Set keyboard after message.");
 
         return new InlineKeyboardMarkup(
                 buttons.entrySet()

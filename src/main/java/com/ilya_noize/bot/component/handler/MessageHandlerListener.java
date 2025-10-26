@@ -2,8 +2,6 @@ package com.ilya_noize.bot.component.handler;
 
 import com.ilya_noize.bot.enums.Command;
 import com.ilya_noize.bot.enums.KeyboardButtons;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,14 +14,12 @@ import org.telegram.telegrambots.meta.api.objects.message.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
 public class MessageHandlerListener implements LongPollingUpdateConsumer {
-    private static final Logger logger = LoggerFactory.getLogger(MessageHandlerListener.class);
     private final TelegramClient telegramClient;
     private final Map<String, HandleCommand> commands;
     private final Map<String, HandleCallbackQuery> callbackQueries;
@@ -32,19 +28,19 @@ public class MessageHandlerListener implements LongPollingUpdateConsumer {
     public MessageHandlerListener(@Value("${telegram.bot.token}") String token,
                                   List<HandleCommand> commands,
                                   List<HandleCallbackQuery> callbackQueries) {
-        logger.debug("MessageHandlerListener constructing...");
+        //log.debug("MessageHandlerListener constructing...");
         this.telegramClient = new OkHttpTelegramClient(token);
         this.commands = commands.stream()
                 .collect(Collectors.toMap(
                         HandleCommand::getOperationType,
                         handler -> handler));
-        logger.debug("HandleCommands.count = '{}'", commands.size());
+        //log.debug("HandleCommands.count = '{}'", commands.size());
         this.callbackQueries = callbackQueries.stream()
                 .collect(Collectors.toMap(
                         HandleCallbackQuery::getOperationType,
                         handler -> handler));
-        logger.debug("HandleCallbackQueries.count = '{}'", callbackQueries.size());
-        logger.debug("MessageHandlerListener constructed");
+        //log.debug("HandleCallbackQueries.count = '{}'", callbackQueries.size());
+        //log.debug("MessageHandlerListener constructed");
     }
 
     @Override
@@ -60,36 +56,36 @@ public class MessageHandlerListener implements LongPollingUpdateConsumer {
         if (update.hasMessage()) {
             Message message = update.getMessage();
             String messageKey = Command.findByName(message.getText());
-            logger.debug("Processing message '{}' ...", messageKey);
+            //log.debug("Processing message '{}' ...", messageKey);
             if (commands.containsKey(messageKey)) {
-                logger.debug("Process by message '{}' was found. Processing...", messageKey);
+                //log.debug("Process by message '{}' was found. Processing...", messageKey);
                 return commands.get(messageKey)
                         .processing(message.getChatId());
             }
         } else if (update.hasCallbackQuery()) {
             CallbackQuery callbackQuery = update.getCallbackQuery();
             String queryKey = KeyboardButtons.findByText(callbackQuery.getData());
-            logger.debug("Processing query '{}' ...", queryKey);
+            //log.debug("Processing query '{}' ...", queryKey);
             if (callbackQueries.containsKey(queryKey)) {
-                logger.debug("Process by query '{}' was found. Processing...", queryKey);
+                //log.debug("Process by query '{}' was found. Processing...", queryKey);
 
                 return callbackQueries.get(queryKey)
                         .processing(callbackQuery);
             }
         }
-        logger.trace("[t] Processing message fail. Can't execute null-response.");
+        //log.trace("[t] Processing message fail. Can't execute null-response.");
         return null;
     }
 
     private void execute(SendMessage message) {
         Integer threadId = message.getMessageThreadId();
-        logger.debug("Executing message id:{}...", threadId);
+        //log.debug("Executing message id:{}...", threadId);
         try {
             telegramClient.execute(message);
-            logger.debug("Execute message id:{} complete.", threadId);
+            //log.debug("Execute message id:{} complete.", threadId);
         } catch (TelegramApiException telegramApiException) {
-            logger.error("[e] Execute message fail - TelegramApiException: '{}'.", telegramApiException.getMessage());
-            logger.trace("TelegramApiException: {}", Arrays.stream(telegramApiException.getStackTrace()).sequential());
+            //log.error("[e] Execute message fail - TelegramApiException: '{}'.", telegramApiException.getMessage());
+            //log.trace("TelegramApiException: {}", Arrays.stream(telegramApiException.getStackTrace()).sequential());
         }
     }
 }

@@ -1,11 +1,21 @@
 package com.ilya_noize.bot.enums;
 
+/**
+ * # BotFather settings:
+ * start - Начало работы
+ * feedback - База откликов
+ * resume - Менеджер резюме
+ * interview - Календарь собеседований
+ * analytic - Аналитический модуль
+ */
 public enum Command {
-    UNKNOWN("",             "No such command"),
+    UNKNOWN     ("",            "No such command"),
 
-    START("/start",         "Начало работы"),
-    MENU("/menu",           "Рабочее меню"),
-    REPORT("/report",       "Показать отчёт");
+    START       ("/start",      "Начало работы"),
+    FEEDBACK    ("/feedback",   "База откликов"),
+    RESUME      ("/resume",     "Менеджер резюме"),
+    INTERVIEW   ("/interview",  "Календарь собеседований"),
+    ANALYTIC    ("/analytic",   "Аналитический модуль");
 
     private final String name;
     private final String description;
@@ -15,12 +25,8 @@ public enum Command {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public static String findByName(String name) {
-        for(Command command: Command.values()) {
+        for (Command command : Command.values()) {
             if (command.name.equals(name)) {
                 return command.name;
             }
@@ -30,5 +36,9 @@ public enum Command {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getName() {
+        return name;
     }
 }
