@@ -10,13 +10,14 @@ package com.ilya_noize.bot.enums;
  */
 public enum Command {
     UNKNOWN     ("",            "No such command"),
+    TOOLS       ("/tools",      "Инструменты"),
 
-    START       ("/start",      "Начало работы"),
+    START       ("/start",      "Начало работы")    ,
     FEEDBACK    ("/feedback",   "База откликов"),
     RESUME      ("/resume",     "Менеджер резюме"),
     INTERVIEW   ("/interview",  "Календарь собеседований"),
-    ANALYTIC    ("/analytic",   "Аналитический модуль");
-
+    ANALYTIC    ("/analytic",   "Аналитический модуль")
+;
     private final String name;
     private final String description;
 

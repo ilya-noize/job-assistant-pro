@@ -14,17 +14,15 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
 
-//@Component
+@Component
 public class HandleResume implements HandleCommand {
 
     public String getOperationType() {
-        return "";
-//                Command.RESUME.getName();
+        return Command.RESUME.getName();
     }
 
     @Override
     public SendMessage processing(Long chatId) {
-        //log.debug("Build message.");
         SendMessage message = SendMessage.builder()
                 .text(getOperationType())
                 .chatId(chatId)
@@ -38,12 +36,10 @@ public class HandleResume implements HandleCommand {
                                 .collect(toMap(
                                         KeyboardButtons::getCallbackData,
                                         KeyboardButtons::getDescription))));
-        //log.debug("Processing complete.");
         return message;
     }
 
     private InlineKeyboardMarkup getInlineKeyboardMarkup(Map<String, String> buttons) {
-        //log.debug("Set keyboard after message.");
 
         return new InlineKeyboardMarkup(
                 buttons.entrySet()

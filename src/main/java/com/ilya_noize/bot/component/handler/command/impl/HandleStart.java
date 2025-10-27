@@ -23,7 +23,6 @@ public class HandleStart implements HandleCommand {
 
     @Override
     public SendMessage processing(Long chatId) {
-        //log.debug("Build message.");
         SendMessage message = SendMessage.builder()
                 .text("Welcome")
                 .chatId(chatId)
@@ -37,12 +36,10 @@ public class HandleStart implements HandleCommand {
                                 .collect(toMap(
                                         KeyboardButtons::getCallbackData,
                                         KeyboardButtons::getDescription))));
-        //log.debug("Processing complete.");
         return message;
     }
 
     private InlineKeyboardMarkup getInlineKeyboardMarkup(Map<String, String> buttons) {
-        //log.debug("Set keyboard after message.");
 
         return new InlineKeyboardMarkup(
                 buttons.entrySet()

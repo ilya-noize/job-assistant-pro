@@ -1,28 +1,26 @@
-package com.ilya_noize.bot.component.handler.query.impl;
+package com.ilya_noize.bot.component.handler.query.interview;
 
 import com.ilya_noize.bot.component.handler.HandleCallbackQuery;
-import com.ilya_noize.bot.enums.KeyboardButtons;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
-@Component
-public class HandleResumeManagerButton implements HandleCallbackQuery {
+import static com.ilya_noize.bot.enums.KeyboardButtons.REMINDERS;
 
-    private static final KeyboardButtons RESUME = KeyboardButtons.RESUME_MANAGER;
+@Component
+public class HandleRemindersButton implements HandleCallbackQuery {
 
     @Override
     public String getOperationType() {
 
-        return RESUME.getCallbackData();
+        return REMINDERS.getCallbackData();
     }
 
     @Override
     public SendMessage processing(CallbackQuery callbackQuery) {
-        //log.debug("Processing complete.");
         return SendMessage.builder()
                 .chatId(callbackQuery.getFrom().getId())
-                .text(RESUME.getDescription())
+                .text(REMINDERS.getDescription())
                 .build();
     }
 }

@@ -15,10 +15,10 @@ import java.util.Map;
 import static java.util.stream.Collectors.toMap;
 
 @Component
-public class HandleFeedbackBase implements HandleCommand {
+public class HandleAnalytic implements HandleCommand {
 
     public String getOperationType() {
-        return Command.FEEDBACK.getName();
+        return Command.ANALYTIC.getName();
     }
 
     @Override

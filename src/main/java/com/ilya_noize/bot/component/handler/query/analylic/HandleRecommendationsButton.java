@@ -1,27 +1,26 @@
-package com.ilya_noize.bot.component.handler.query;
+package com.ilya_noize.bot.component.handler.query.analylic;
 
 import com.ilya_noize.bot.component.handler.HandleCallbackQuery;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
-import static com.ilya_noize.bot.enums.KeyboardButtons.UNKNOWN;
+import static com.ilya_noize.bot.enums.KeyboardButtons.RECOMMENDATIONS;
 
 @Component
-public class HandleUnknownButton implements HandleCallbackQuery {
+public class HandleRecommendationsButton implements HandleCallbackQuery {
 
     @Override
     public String getOperationType() {
 
-        return UNKNOWN.getCallbackData();
+        return RECOMMENDATIONS.getCallbackData();
     }
 
     @Override
     public SendMessage processing(CallbackQuery callbackQuery) {
-
         return SendMessage.builder()
                 .chatId(callbackQuery.getFrom().getId())
-                .text(UNKNOWN.getDescription())
+                .text(RECOMMENDATIONS.getDescription())
                 .build();
     }
 }

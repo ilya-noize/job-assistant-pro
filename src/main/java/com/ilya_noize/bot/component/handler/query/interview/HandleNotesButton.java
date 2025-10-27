@@ -1,28 +1,26 @@
-package com.ilya_noize.bot.component.handler.query.impl;
+package com.ilya_noize.bot.component.handler.query.interview;
 
 import com.ilya_noize.bot.component.handler.HandleCallbackQuery;
-import com.ilya_noize.bot.enums.KeyboardButtons;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
-@Component
-public class HandleAnalyticalModuleButton implements HandleCallbackQuery {
+import static com.ilya_noize.bot.enums.KeyboardButtons.NOTES;
 
-    private static final KeyboardButtons ANALYTICAL_MODULE = KeyboardButtons.CALENDAR;
+@Component
+public class HandleNotesButton implements HandleCallbackQuery {
 
     @Override
     public String getOperationType() {
 
-        return ANALYTICAL_MODULE.getCallbackData();
+        return NOTES.getCallbackData();
     }
 
     @Override
     public SendMessage processing(CallbackQuery callbackQuery) {
-        //log.debug("Processing complete.");
         return SendMessage.builder()
                 .chatId(callbackQuery.getFrom().getId())
-                .text(ANALYTICAL_MODULE.getDescription())
+                .text(NOTES.getDescription())
                 .build();
     }
 }

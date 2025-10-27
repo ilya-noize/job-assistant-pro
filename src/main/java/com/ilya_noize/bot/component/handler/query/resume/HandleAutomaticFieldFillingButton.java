@@ -1,27 +1,26 @@
-package com.ilya_noize.bot.component.handler.query;
+package com.ilya_noize.bot.component.handler.query.resume;
 
 import com.ilya_noize.bot.component.handler.HandleCallbackQuery;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
-import static com.ilya_noize.bot.enums.KeyboardButtons.UNKNOWN;
+import static com.ilya_noize.bot.enums.KeyboardButtons.AUTOMATIC_FIELD_FILLING;
 
 @Component
-public class HandleUnknownButton implements HandleCallbackQuery {
+public class HandleAutomaticFieldFillingButton implements HandleCallbackQuery {
 
     @Override
     public String getOperationType() {
 
-        return UNKNOWN.getCallbackData();
+        return AUTOMATIC_FIELD_FILLING.getCallbackData();
     }
 
     @Override
     public SendMessage processing(CallbackQuery callbackQuery) {
-
         return SendMessage.builder()
                 .chatId(callbackQuery.getFrom().getId())
-                .text(UNKNOWN.getDescription())
+                .text(AUTOMATIC_FIELD_FILLING.getDescription())
                 .build();
     }
 }
