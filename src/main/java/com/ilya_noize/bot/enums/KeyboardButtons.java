@@ -45,15 +45,6 @@ public enum KeyboardButtons {
         this.linkingMenu = linkingMenu;
     }
 
-    public static String findByCallback(String callback) {
-        Callback finding = Enum.valueOf(Callback.class, callback);
-        for (KeyboardButtons key : KeyboardButtons.values()) {
-            if (key.callbackData.equals(finding)) {
-                return key.callbackData.toString();
-            }
-        }
-        return KeyboardButtons.UNKNOWN.callbackData.toString();
-    }
     public String getDescription() {
         return description;
     }

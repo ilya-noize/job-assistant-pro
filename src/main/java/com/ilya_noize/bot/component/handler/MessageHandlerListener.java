@@ -48,22 +48,24 @@ public class MessageHandlerListener implements LongPollingUpdateConsumer {
         }
     }
 
-    public SendMessage handleUpdate(Update update) throws IllegalArgumentException {
+    public SendMessage handleUpdate(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            String messageKey = Command.findByName(message.getText());
-            if (commands.containsKey(messageKey)) {
-                return commands.get(messageKey)
-                        .processing(message.getChatId());
+            String command = Command.findByName(message.getText());
+            if (!commands.containsKey(command)) {
+
+                return commands.get(Command.UNKNOWN.getName()).processing(message.getChatId());
             }
+            return commands.get(command).processing(message.getChatId());
+
         } else if (update.hasCallbackQuery()) {
             CallbackQuery callbackQuery = update.getCallbackQuery();
-            String queryKey = KeyboardButtons.findByCallback(callbackQuery.getData());
-            if (callbackQueries.containsKey(queryKey)) {
+            String callback = callbackQuery.getData();
+            if (!callbackQueries.containsKey(callback)) {
 
-                return callbackQueries.get(queryKey)
-                        .processing(callbackQuery);
+                return callbackQueries.get(KeyboardButtons.UNKNOWN.getCallbackData()).processing(callbackQuery);
             }
+            return callbackQueries.get(callback).processing(callbackQuery);
         }
         return null;
     }
