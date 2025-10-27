@@ -18,5 +18,5 @@ public enum Callback {
     NOTES,
     STATISTICS_RESPONSES,
     CASES,
-    RECOMMENDATIONS;
+    RECOMMENDATIONS
 }

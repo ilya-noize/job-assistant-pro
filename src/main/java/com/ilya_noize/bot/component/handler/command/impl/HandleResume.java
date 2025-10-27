@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toMap;
 public class HandleResume implements HandleCommand {
 
     public String getOperationType() {
-        return Command.RESUME.getName();
+        return Command.RESUME_MANAGER.getName();
     }
 
     @Override

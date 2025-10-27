@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toMap;
 public class HandleFeedbackBase implements HandleCommand {
 
     public String getOperationType() {
-        return Command.FEEDBACK.getName();
+        return Command.FEEDBACK_BASE.getName();
     }
 
     @Override

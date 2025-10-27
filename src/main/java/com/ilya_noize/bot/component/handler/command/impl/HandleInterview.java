@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toMap;
 public class HandleInterview implements HandleCommand {
 
     public String getOperationType() {
-        return Command.INTERVIEW.getName();
+        return Command.INTERVIEW_CALENDAR.getName();
     }
 
     @Override

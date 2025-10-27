@@ -12,11 +12,11 @@ public enum Command {
     UNKNOWN     ("",            "No such command"),
     TOOLS       ("/tools",      "Инструменты"),
 
-    START       ("/start",      "Начало работы")    ,
-    FEEDBACK    ("/feedback",   "База откликов"),
-    RESUME      ("/resume",     "Менеджер резюме"),
-    INTERVIEW   ("/interview",  "Календарь собеседований"),
-    ANALYTIC    ("/analytic",   "Аналитический модуль")
+    START       ("/start",      "Начало работы"),
+    FEEDBACK_BASE("/feedback",   "База откликов"),
+    RESUME_MANAGER("/resume",     "Менеджер резюме"),
+    INTERVIEW_CALENDAR("/interview",  "Календарь собеседований"),
+    ANALYTICAL_MODULE("/analytic",   "Аналитический модуль")
 ;
     private final String name;
     private final String description;

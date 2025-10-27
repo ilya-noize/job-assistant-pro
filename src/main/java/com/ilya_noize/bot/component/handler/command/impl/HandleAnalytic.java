@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toMap;
 public class HandleAnalytic implements HandleCommand {
 
     public String getOperationType() {
-        return Command.ANALYTIC.getName();
+        return Command.ANALYTICAL_MODULE.getName();
     }
 
     @Override
