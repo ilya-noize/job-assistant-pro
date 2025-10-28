@@ -15,7 +15,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toMap;
 
 @Component
-public class HandleResume implements HandleCommand {
+public class HandleResumeManager implements HandleCommand {
 
     public String getOperationType() {
         return Command.RESUME_MANAGER.getName();
@@ -24,7 +24,7 @@ public class HandleResume implements HandleCommand {
     @Override
     public SendMessage processing(Long chatId) {
         SendMessage message = SendMessage.builder()
-                .text(getOperationType())
+                .text(Command.RESUME_MANAGER.getDescription())
                 .chatId(chatId)
                 .build();
 

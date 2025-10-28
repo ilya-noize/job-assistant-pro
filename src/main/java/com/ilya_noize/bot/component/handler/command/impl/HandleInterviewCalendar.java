@@ -15,7 +15,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toMap;
 
 @Component
-public class HandleInterview implements HandleCommand {
+public class HandleInterviewCalendar implements HandleCommand {
 
     public String getOperationType() {
         return Command.INTERVIEW_CALENDAR.getName();
@@ -24,7 +24,7 @@ public class HandleInterview implements HandleCommand {
     @Override
     public SendMessage processing(Long chatId) {
         SendMessage message = SendMessage.builder()
-                .text(getOperationType())
+                .text(Command.INTERVIEW_CALENDAR.getDescription())
                 .chatId(chatId)
                 .build();
 

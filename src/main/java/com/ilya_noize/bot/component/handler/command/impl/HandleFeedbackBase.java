@@ -17,6 +17,7 @@ import static java.util.stream.Collectors.toMap;
 @Component
 public class HandleFeedbackBase implements HandleCommand {
 
+
     public String getOperationType() {
         return Command.FEEDBACK_BASE.getName();
     }
@@ -24,7 +25,7 @@ public class HandleFeedbackBase implements HandleCommand {
     @Override
     public SendMessage processing(Long chatId) {
         SendMessage message = SendMessage.builder()
-                .text(getOperationType())
+                .text(Command.FEEDBACK_BASE.getDescription())
                 .chatId(chatId)
                 .build();
 

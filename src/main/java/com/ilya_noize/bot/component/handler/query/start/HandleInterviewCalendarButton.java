@@ -1,6 +1,7 @@
 package com.ilya_noize.bot.component.handler.query.start;
 
 import com.ilya_noize.bot.component.handler.HandleCallbackQuery;
+import com.ilya_noize.bot.component.handler.command.impl.HandleInterviewCalendar;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -8,7 +9,12 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import static com.ilya_noize.bot.enums.KeyboardButtons.INTERVIEW_CALENDAR;
 
 @Component
-public class HandleCalendarButton implements HandleCallbackQuery {
+public class HandleInterviewCalendarButton implements HandleCallbackQuery {
+    private final HandleInterviewCalendar handleInterviewCalendar;
+
+    public HandleInterviewCalendarButton(HandleInterviewCalendar handleInterviewCalendar) {
+        this.handleInterviewCalendar = handleInterviewCalendar;
+    }
 
     @Override
     public String getOperationType() {
@@ -18,9 +24,6 @@ public class HandleCalendarButton implements HandleCallbackQuery {
 
     @Override
     public SendMessage processing(CallbackQuery callbackQuery) {
-        return SendMessage.builder()
-                .chatId(callbackQuery.getFrom().getId())
-                .text(INTERVIEW_CALENDAR.getDescription())
-                .build();
+        return handleInterviewCalendar.processing(callbackQuery.getMessage().getChatId());
     }
 }

@@ -24,7 +24,7 @@ public class HandleStart implements HandleCommand {
     @Override
     public SendMessage processing(Long chatId) {
         SendMessage message = SendMessage.builder()
-                .text("Welcome")
+                .text(Command.START.getDescription())
                 .chatId(chatId)
                 .build();
 

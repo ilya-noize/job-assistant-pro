@@ -17,6 +17,7 @@ import static java.util.stream.Collectors.toMap;
 @Component
 public class HandleAnalytic implements HandleCommand {
 
+    @Override
     public String getOperationType() {
         return Command.ANALYTICAL_MODULE.getName();
     }
@@ -24,7 +25,7 @@ public class HandleAnalytic implements HandleCommand {
     @Override
     public SendMessage processing(Long chatId) {
         SendMessage message = SendMessage.builder()
-                .text(getOperationType())
+                .text(Command.ANALYTICAL_MODULE.getDescription())
                 .chatId(chatId)
                 .build();
 
