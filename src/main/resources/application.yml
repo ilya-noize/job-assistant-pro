@@ -28,6 +28,7 @@ aggregator:
         interval:
           sec: 5
     clientId: ${HH_CLIENT_ID}
+    clientSecret: ${HH_CLIENT_SECRET}
 
 logging:
   file:
