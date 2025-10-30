@@ -19,6 +19,7 @@ aggregator:
     uri:
       api: ${HH_API_URI}
       host: ${HH_HOST_URI}
+      oauth: ${HH_AUTH_URI}
       redirect: ${HH_REDIRECT_URI}
     responses:
       limit:
