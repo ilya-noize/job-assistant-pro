@@ -3,6 +3,7 @@ package com.ilya_noize.bot.handler.command.impl;
 import com.ilya_noize.bot.handler.HandleCommand;
 import com.ilya_noize.bot.enums.Command;
 import com.ilya_noize.bot.enums.KeyboardButtons;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
 
+@Slf4j
 @Component
 public class HandleInterviewCalendar implements HandleCommand {
 
@@ -23,6 +25,7 @@ public class HandleInterviewCalendar implements HandleCommand {
 
     @Override
     public SendMessage processing(Long chatId) {
+        log.debug("Build message:{} to chat:{}", getOperationType(), chatId);
         SendMessage message = SendMessage.builder()
                 .text(Command.INTERVIEW_CALENDAR.getDescription())
                 .chatId(chatId)

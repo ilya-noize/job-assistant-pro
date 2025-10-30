@@ -1,6 +1,8 @@
 package com.ilya_noize.bot.enums;
 
 
+import lombok.Getter;
+
 public enum KeyboardButtons {
 
     UNKNOWN("No such command", Callback.UNKNOWN, ""),
@@ -28,8 +30,10 @@ public enum KeyboardButtons {
     CASES("Анализ кейсов (успешных/неуспешных)", Callback.CASES, Command.ANALYTICAL_MODULE.getName()),
     RECOMMENDATIONS("Рекомендации по улучшению процесса", Callback.RECOMMENDATIONS, Command.ANALYTICAL_MODULE.getName());
 
+    @Getter
     private final String description;
     private final Callback callbackData;
+    @Getter
     private final String linkingMenu;
 
     KeyboardButtons(String description, Callback callbackData, String linkingMenu) {
@@ -38,16 +42,7 @@ public enum KeyboardButtons {
         this.linkingMenu = linkingMenu;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public String getCallbackData() {
         return callbackData.toString().toLowerCase();
     }
-
-    public String getLinkingMenu() {
-        return linkingMenu;
-    }
-
 }

@@ -1,5 +1,7 @@
 package com.ilya_noize.bot.enums;
 
+import lombok.Getter;
+
 /**
  * # BotFather settings:
  * start - Начало работы
@@ -8,6 +10,8 @@ package com.ilya_noize.bot.enums;
  * interview - Календарь собеседований
  * analytic - Аналитический модуль
  */
+
+@Getter
 public enum Command {
     UNKNOWN     ("",            "No such command"),
     TOOLS       ("/tools",      "Инструменты"),
@@ -35,11 +39,4 @@ public enum Command {
         return Command.UNKNOWN.name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
