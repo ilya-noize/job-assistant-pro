@@ -4,6 +4,7 @@ import com.ilya_noize.bot.handler.HandleCallbackQuery;
 import com.ilya_noize.bot.handler.HandleCommand;
 import com.ilya_noize.bot.enums.Command;
 import com.ilya_noize.bot.enums.KeyboardButtons;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class MessageHandlerListener implements LongPollingUpdateConsumer {
     private final TelegramClient telegramClient;
@@ -39,6 +41,7 @@ public class MessageHandlerListener implements LongPollingUpdateConsumer {
                 .collect(Collectors.toMap(
                         HandleCallbackQuery::getOperationType,
                         handler -> handler));
+        log.debug("Listener constructed.");
     }
 
     @Override
@@ -75,8 +78,9 @@ public class MessageHandlerListener implements LongPollingUpdateConsumer {
     private void execute(SendMessage message) {
         try {
             telegramClient.execute(message);
+            log.debug("Send message in chat:{}", message.getChatId());
         } catch (TelegramApiException telegramApiException) {
-            throw new IllegalArgumentException(telegramApiException);
+            log.error("Send message is fail:{}", telegramApiException.getMessage());
         }
     }
 }
