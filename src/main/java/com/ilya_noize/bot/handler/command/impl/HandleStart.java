@@ -10,8 +10,11 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardRow;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -25,6 +28,42 @@ public class HandleStart implements HandleCommand {
 
     @Override
     public SendMessage processing(Long chatId) {
+        log.debug("Build message:{} to chat:{}", getOperationType(), chatId);
+        String accessToken = getAccessToken();
+
+        if (accessToken.isBlank()) {
+            generateUrl();
+
+            return SendMessage.builder()
+                    .text("Авторизация на сайте агрегатора")
+                    .chatId(chatId)
+                    .build();
+        }
+        return getSendMessageWithButtons(chatId);
+    }
+
+    private static String generateUrl() {
+
+        Map<String, String> params = Map.of(
+                "grant_type", "authorization_code",
+                "client_id", "ETVQdMs2n9VKw7SMXkh9nX5H",
+                "client_secret", "95dNjB8FmtxQsmygm6dtEy53",
+                "redirect_uri", "http%3A%2F%2Fwww.example.com%2Foauth",
+                "code", "29CtxMcaA8pRFDYyC8e8Gkm4");
+
+        return params.entrySet().stream()
+                .map(e -> e.getKey() + "=" + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
+                .collect(Collectors.joining("&"))
+                .replaceAll(".$", "");
+    }
+
+    private String getAccessToken() {
+
+        return "";
+    }
+
+    private SendMessage getSendMessageWithButtons(Long chatId) {
+
         SendMessage message = SendMessage.builder()
                 .text(Command.START.getDescription())
                 .chatId(chatId)
