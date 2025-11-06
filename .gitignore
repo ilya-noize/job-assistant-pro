@@ -35,5 +35,5 @@ build/
 ### MANUAL ###
 /logs/*
 /.env
-/src/main/resources/dev.application.yml
+/src/main/resources/application-dev.yml
 /.m2/settings.xml
