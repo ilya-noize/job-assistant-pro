@@ -29,7 +29,7 @@ public record Vacancy(
         List<Relation> relations,
         Employer employer,
         Snippet snippet,
-        Schedule schedule,
+//        Schedule schedule,    //Deprecated
         List<String> workingDays,
         List<String> workingTimeIntervals,
         List<String> workingTimeModes,
@@ -42,7 +42,7 @@ public record Vacancy(
         List<ProfessionalRole> professionalRoles,
         boolean acceptIncompleteResumes,
         Experience experience,
-        Employment employment,
+//        Employment employment,    //Deprecated
         EmploymentForm employmentForm,
         boolean internship,
         String advResponseUrl,
