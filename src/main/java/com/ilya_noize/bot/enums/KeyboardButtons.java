@@ -1,44 +1,48 @@
 package com.ilya_noize.bot.enums;
 
-import static com.ilya_noize.bot.enums.Command.START;
+
+import lombok.Getter;
 
 public enum KeyboardButtons {
 
-    UNKNOWN("No such command", "unknown", ""),
+    UNKNOWN("No such command", Callback.UNKNOWN, ""),
 
-    NAME("Say my name", "my_name_is", START.getName()),
-    LAUNCH(   "Where is launched?", "launched", START.getName()),
-    AUTHORIZE("Authorize me", "auth", START.getName()),
-    MANAGE("goto Menu", "menu", START.getName());
+    LAUNCH("Where is launched?", Callback.LAUNCH, Command.TOOLS.getName()),
 
-    private final String callbackData;
-    private final String text;
+    FEEDBACK_BASE(Command.FEEDBACK_BASE.getDescription(), Callback.FEEDBACK_BASE, Command.START.getName()),
+    RESUME_MANAGER(Command.RESUME_MANAGER.getDescription(), Callback.RESUME_MANAGER, Command.START.getName()),
+    INTERVIEW_CALENDAR(Command.INTERVIEW_CALENDAR.getDescription(), Callback.CALENDAR, Command.START.getName()),
+    ANALYTICAL_MODULE(Command.ANALYTICAL_MODULE.getDescription(), Callback.ANALYTICAL_MODULE, Command.START.getName())    ,
+
+    MANAGING_FEEDBACK("Управление списком откликов на вакансии", Callback.MANAGING_FEEDBACK, Command.FEEDBACK_BASE.getName()),
+    TRACKING_RESPONSE("Отслеживание статусов откликов", Callback.TRACKING_RESPONSE, Command.FEEDBACK_BASE.getName()),
+    REMINDERS_RESPONSE("Напоминания о сроках ответа работодателей", Callback.REMINDERS_RESPONSE, Command.FEEDBACK_BASE.getName()),
+
+    VERSIONS("Хранение и управление версиями резюме", Callback.VERSIONS, Command.RESUME_MANAGER.getName()),
+    TEMPLATES("Шаблоны для разных типов вакансий", Callback.TEMPLATES, Command.RESUME_MANAGER.getName()),
+    AUTOMATIC_FIELD_FILLING("Автоматическое заполнение полей", Callback.FIELD_FILLING, Command.RESUME_MANAGER.getName()),
+
+    INTERVIEW_PLANNING("Планирование интервью", Callback.PLANNING, Command.INTERVIEW_CALENDAR.getName()),
+    REMINDERS("Напоминания", Callback.REMINDERS, Command.INTERVIEW_CALENDAR.getName()),
+    NOTES("Хранение заметок по каждому собеседованию", Callback.NOTES, Command.INTERVIEW_CALENDAR.getName()),
+
+    STATISTICS_RESPONSES("Статистика по откликам", Callback.STATISTICS_RESPONSES, Command.ANALYTICAL_MODULE.getName()),
+    CASES("Анализ кейсов (успешных/неуспешных)", Callback.CASES, Command.ANALYTICAL_MODULE.getName()),
+    RECOMMENDATIONS("Рекомендации по улучшению процесса", Callback.RECOMMENDATIONS, Command.ANALYTICAL_MODULE.getName());
+
+    @Getter
+    private final String description;
+    private final Callback callbackData;
+    @Getter
     private final String linkingMenu;
 
-    KeyboardButtons(String callbackData, String text, String linkingMenu) {
+    KeyboardButtons(String description, Callback callbackData, String linkingMenu) {
+        this.description = description;
         this.callbackData = callbackData;
-        this.text = text;
         this.linkingMenu = linkingMenu;
     }
 
-    public static String findByText(String text) {
-        for(KeyboardButtons key: KeyboardButtons.values()) {
-            if (key.text.equals(text)) {
-                return key.text;
-            }
-        }
-        return KeyboardButtons.UNKNOWN.text;
-    }
-
     public String getCallbackData() {
-        return callbackData;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getLinkingMenu() {
-        return linkingMenu;
+        return callbackData.toString().toLowerCase();
     }
 }

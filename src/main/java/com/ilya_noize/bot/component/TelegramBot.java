@@ -1,6 +1,5 @@
 package com.ilya_noize.bot.component;
 
-import com.ilya_noize.bot.component.handler.MessageHandlerListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

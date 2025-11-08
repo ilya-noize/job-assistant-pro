@@ -2,6 +2,10 @@ spring:
   application:
     name: job-assistant-pro
 
+springdoc:
+  api-docs:
+    path: /api-docs
+
 server:
   port: 8080
 
@@ -28,6 +32,8 @@ aggregator:
         interval:
           sec: 5
     clientId: ${HH_CLIENT_ID}
+    clientSecret: ${HH_CLIENT_SECRET}
+    userAgent: ${HH_USER_AGENT}
 
 logging:
   file:

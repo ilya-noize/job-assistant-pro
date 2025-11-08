@@ -1,0 +1,86 @@
+package com.ilya_noize.bot.component;
+
+import com.ilya_noize.bot.handler.HandleCallbackQuery;
+import com.ilya_noize.bot.handler.HandleCommand;
+import com.ilya_noize.bot.enums.Command;
+import com.ilya_noize.bot.enums.KeyboardButtons;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
+import org.telegram.telegrambots.longpolling.interfaces.LongPollingUpdateConsumer;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.message.Message;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.TelegramClient;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Slf4j
+@Component
+public class MessageHandlerListener implements LongPollingUpdateConsumer {
+    private final TelegramClient telegramClient;
+    private final Map<String, HandleCommand> commands;
+    private final Map<String, HandleCallbackQuery> callbackQueries;
+
+    @Autowired
+    public MessageHandlerListener(@Value("${telegram.bot.token}") String token,
+                                  List<HandleCommand> commands,
+                                  List<HandleCallbackQuery> callbackQueries) {
+        this.telegramClient = new OkHttpTelegramClient(token);
+        this.commands = commands.stream()
+                .collect(Collectors.toMap(
+                        HandleCommand::getOperationType,
+                        handler -> handler));
+        this.callbackQueries = callbackQueries.stream()
+                .collect(Collectors.toMap(
+                        HandleCallbackQuery::getOperationType,
+                        handler -> handler));
+        log.debug("Listener constructed.");
+    }
+
+    @Override
+    public void consume(List<Update> updates) {
+        for (Update update : updates) {
+            SendMessage processed = handleUpdate(update);
+            if (processed == null) break;
+            execute(processed);
+        }
+    }
+
+    public SendMessage handleUpdate(Update update) {
+        if (update.hasMessage()) {
+            Message message = update.getMessage();
+            String command = Command.findByName(message.getText());
+            if (!commands.containsKey(command)) {
+
+                return commands.get(Command.UNKNOWN.getName()).processing(message.getChatId());
+            }
+            return commands.get(command).processing(message.getChatId());
+
+        } else if (update.hasCallbackQuery()) {
+            CallbackQuery callbackQuery = update.getCallbackQuery();
+            String callback = callbackQuery.getData();
+            if (!callbackQueries.containsKey(callback)) {
+
+                return callbackQueries.get(KeyboardButtons.UNKNOWN.getCallbackData()).processing(callbackQuery);
+            }
+            return callbackQueries.get(callback).processing(callbackQuery);
+        }
+        return null;
+    }
+
+    private void execute(SendMessage message) {
+        try {
+            telegramClient.execute(message);
+            log.debug("Send message in chat:{}", message.getChatId());
+        } catch (TelegramApiException telegramApiException) {
+            log.error("Send message is fail:{}", telegramApiException.getMessage());
+        }
+    }
+}

@@ -1,0 +1,22 @@
+package com.ilya_noize.bot.enums;
+
+public enum Callback {
+    UNKNOWN,
+    LAUNCH,
+    FEEDBACK_BASE,
+    RESUME_MANAGER,
+    CALENDAR,
+    ANALYTICAL_MODULE,
+    MANAGING_FEEDBACK,
+    TRACKING_RESPONSE,
+    REMINDERS_RESPONSE,
+    VERSIONS,
+    TEMPLATES,
+    FIELD_FILLING,
+    PLANNING,
+    REMINDERS,
+    NOTES,
+    STATISTICS_RESPONSES,
+    CASES,
+    RECOMMENDATIONS
+}
