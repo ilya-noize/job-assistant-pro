@@ -1,7 +1,9 @@
-package com.ilya_noize.bot.clients.token.response;
+package com.ilya_noize.bot.clients.authentication.response;
 
-public record ApplicationTokenResponse(
+public record UserTokenResponse(
         String accessToken,
+        Long expiresIn,
+        String refreshToken,
         String tokenType) {
 
     public boolean isValidTokenType() {

@@ -1,7 +1,7 @@
-package com.ilya_noize.bot.clients.token;
+package com.ilya_noize.bot.clients.authentication;
 
-import com.ilya_noize.bot.clients.token.response.ApplicationTokenResponse;
-import com.ilya_noize.bot.clients.token.response.CurrentUserResponse;
+import com.ilya_noize.bot.clients.authentication.response.ApplicationTokenResponse;
+import com.ilya_noize.bot.clients.authentication.response.CurrentUserResponse;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.GetExchange;

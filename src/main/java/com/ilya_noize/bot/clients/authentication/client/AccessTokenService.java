@@ -1,4 +1,4 @@
-package com.ilya_noize.bot.clients.token.client;
+package com.ilya_noize.bot.clients.authentication.client;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;

@@ -1,4 +1,4 @@
-package com.ilya_noize.bot.clients.token.response;
+package com.ilya_noize.bot.clients.authentication.response;
 
 import java.util.List;
 import java.util.Map;

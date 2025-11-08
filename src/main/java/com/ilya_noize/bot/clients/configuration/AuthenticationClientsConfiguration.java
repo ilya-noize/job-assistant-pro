@@ -1,7 +1,7 @@
-package com.ilya_noize.bot.configuration;
+package com.ilya_noize.bot.clients.configuration;
 
-import com.ilya_noize.bot.clients.token.AuthenticationApplicationClient;
-import com.ilya_noize.bot.clients.token.AuthenticationUserClient;
+import com.ilya_noize.bot.clients.authentication.AuthenticationApplicationClient;
+import com.ilya_noize.bot.clients.authentication.AuthenticationUserClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 @Configuration
-public class ClientsConfiguration {
+public class AuthenticationClientsConfiguration {
 
     @Bean
     AuthenticationUserClient authenticationUserClient(@Value("${aggregator.hh.uri.host}") String authUrl) {
